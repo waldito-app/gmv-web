@@ -1,0 +1,10 @@
+FORMULARIO DE CONTACTO GMV — NETLIFY
+
+1. Subir este ZIP al MISMO sitio Gonzalo Martínez Vargas en Netlify (Deploys > drag and drop).
+2. Abrir Site configuration > Forms (o Forms en menú lateral). Verificar que Netlify detectó "consulta-gmv".
+3. En Forms > Notifications (o Project configuration > Notifications), agregar Email notification para nuevas submissions, a gonzalo@moebius.uy. La ruta exacta del menú puede variar.
+4. Hacer una consulta de prueba con un email propio, verificar pantalla gracias.html, comprobar que figura en Forms > submissions y que llega aviso al correo.
+5. No confundir aviso de notificación con entrega del formulario: los mensajes se almacenan en Netlify Forms.
+6. Comprobar plan y límites de Forms del sitio.
+
+No se modifican DNS, dominios ni el resto de las páginas.

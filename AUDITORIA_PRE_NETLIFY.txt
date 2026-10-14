@@ -1,0 +1,24 @@
+AUDITORÍA PREVIA A NETLIFY — WEB GMV — 08/10/2026
+
+COMPROBADO POR INSPECCIÓN DE ARCHIVOS:
+- Nueve archivos HTML presentes.
+- Navegación entre las nueve páginas: rutas internas resueltas.
+- Recursos locales referenciados: sin faltantes.
+- Etiqueta viewport presente en las nueve páginas.
+- Una cabecera H1 por página.
+- Teléfono en enlaces WhatsApp de Home y Contacto: +598 99 311 511.
+- Correo de contacto: gonzalo@moebius.uy.
+- No hay formularios con servidor pendientes de configuración.
+- Se agregaron descripciones SEO faltantes a Home, Asesoramiento e ICONOS.
+
+PENDIENTE DE VERIFICACIÓN MANUAL ANTES DE PUBLICAR:
+- Visualización real en móvil, tablet y escritorio (no ejecutada en navegador).
+- Accesibilidad del menú en dispositivos táctiles y con teclado.
+- Fotografías externas de Paraguay: confirmar carga efectiva, ubicación y licencia en el sitio publicado.
+- Enlaces externos a Amazon y créditos Wikimedia: probar en navegador.
+- Fotografías personales: confirmar que son las versiones aprobadas.
+- Enlaces a artículos de prensa: no incorporados; falta documentar y verificar URLs.
+- Confirmar recepción efectiva del correo y apertura de WhatsApp.
+- Revisar optimización de imágenes, particularmente iconos_fondo.png (~2.2 MB).
+
+IMPORTANTE: esta auditoría estática no equivale a pruebas funcionales en navegador ni a una auditoría completa de accesibilidad.
