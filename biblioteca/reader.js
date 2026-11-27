@@ -26,8 +26,8 @@ export function createReader(db, root) {
    if(g!==epoch){loaded.forEach(transport.release);return}
    if(results.some(r=>r.status==='rejected')){loaded.forEach(transport.release);throw Error('Page unavailable')}
    urls=loaded;
-   const images=urls.map((u,i)=>{const img=el('img');img.src=u;img.alt='Página '+selected[i];img.style.cssText='min-width:0;max-width:100%;max-height:78vh;object-fit:contain;flex:1';return img});
-   spread.replaceChildren(...images);current=n;jump.value=String(n);status.textContent='Página '+selected.join('–')+' de '+pages.length;save();
+   const images=urls.map((u,i)=>{const img=el('img');img.src=u;img.alt='Página '+selected[i];img.style.cssText='min-width:0;width:'+ (selected.length===2?'calc(50% - 2px)':'100%') +';max-width:100%;max-height:78vh;object-fit:contain;flex:0 1 auto';return img});
+   spread.replaceChildren(...images);if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&typeof spread.animate==='function')spread.animate([{opacity:0.55,transform:'perspective(1200px) rotateY(-4deg)'},{opacity:1,transform:'perspective(1200px) rotateY(0deg)'}],{duration:220,easing:'ease-out'});current=n;jump.value=String(n);status.textContent='Página '+selected.join('–')+' de '+pages.length;save();
   }catch{if(g===epoch){release();status.textContent='No se pudo cargar la página. Verificá tu acceso.'}}
   finally{if(g===epoch){busy=false;prev.disabled=current<=1;next.disabled=current>=pages.length;go.disabled=false}}
  }
