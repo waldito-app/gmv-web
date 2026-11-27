@@ -13,7 +13,7 @@ export function createReader(db, root) {
  function key(){return 'gmv:bookmark:'+book.userId+':'+book.id}
  function save(){try{localStorage.setItem(key(),String(current))}catch{}}
  function release(){for(const u of urls)transport.release(u);urls=[];spread.replaceChildren()}
- function close(){epoch++;transport.clear();release();book=null;pages=[];email='';mark.textContent='';status.textContent='';busy=false;prev.disabled=next.disabled=go.disabled=true}
+ function close(){epoch++;transport.clear();release();book=null;pages=[];email='';mark.textContent='';status.textContent='';busy=false;current=1;prev.disabled=next.disabled=go.disabled=true}
  function visible(n){return media.matches||n===1||n===pages.length?[n]:[n,...(n+1<pages.length?[n+1]:[])]}
  async function show(n){
   if(!book||!Number.isInteger(n)||n<1||n>pages.length)return;
@@ -36,10 +36,12 @@ export function createReader(db, root) {
   const g=epoch;book={id,userId:session.user.id};email=session.user.email||session.user.id;
   try{const data=await transport.manifest(id);if(g!==epoch)return;pages=data;jump.max=String(pages.length);mark.textContent='Lectura personal · '+email;let n=1;try{n=Number(localStorage.getItem(key()))||1}catch{};await show(Math.max(1,Math.min(pages.length,Math.trunc(n))))}catch(e){if(g===epoch)close();throw e}
  }
- prev.onclick=()=>show(Math.max(1,current-(media.matches?1:2)));
+ prev.onclick=()=>show(media.matches?Math.max(1,current-1):current===pages.length&&current>2?2*Math.floor((current-1)/2):Math.max(1,current-2));
  next.onclick=()=>show(Math.min(pages.length,current+visible(current).length));
  go.onclick=()=>show(Number(jump.value));
  const resize=()=>{if(book&&pages.length)void show(current)};
  media.addEventListener('change',resize);
- return {open,close,destroy(){close();media.removeEventListener('change',resize);root.replaceChildren()}};
+ const {data:{subscription}}=db.auth.onAuthStateChange((_event,session)=>{if(book&&session?.user?.id!==book.userId)close()});
+ close();
+ return {open,close,destroy(){subscription.unsubscribe();close();media.removeEventListener('change',resize);root.replaceChildren()}};
 }
