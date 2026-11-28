@@ -38,10 +38,13 @@ export function createReader(db, root) {
  }
  prev.onclick=()=>show(media.matches?Math.max(1,current-1):current===pages.length&&current>2?Math.max(1,2*Math.floor((current-1)/2)):Math.max(1,current-2));
  next.onclick=()=>show(Math.min(pages.length,current+visible(current).length));
+ // Keyboard navigation, without intercepting form controls or modified shortcuts.
+ const keyboard=e=>{if(!book||busy||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.target?.closest?.('input,textarea,select,button,[contenteditable]'))return;if(e.key==='ArrowLeft'&&!prev.disabled){e.preventDefault();prev.click()}else if(e.key==='ArrowRight'&&!next.disabled){e.preventDefault();next.click()}};
+ root.addEventListener('keydown',keyboard);spread.tabIndex=0;spread.setAttribute('aria-label','Páginas del libro');
  go.onclick=()=>show(Number(jump.value));
  const resize=()=>{if(book&&pages.length)void show(current)};
  media.addEventListener('change',resize);
  const {data:{subscription}}=db.auth.onAuthStateChange((_event,session)=>{if(book&&session?.user?.id!==book.userId)close()});
  close();
- return {open,close,destroy(){subscription.unsubscribe();close();media.removeEventListener('change',resize);root.replaceChildren()}};
+ return {open,close,destroy(){subscription.unsubscribe();close();root.removeEventListener('keydown',keyboard);media.removeEventListener('change',resize);root.replaceChildren()}};
 }
