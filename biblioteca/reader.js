@@ -36,7 +36,7 @@ export function createReader(db, root) {
   const g=epoch;book={id,userId:session.user.id};email=session.user.email||session.user.id;
   try{const data=await transport.manifest(id);if(g!==epoch)return;pages=data;jump.max=String(pages.length);mark.textContent='Lectura personal · '+email;let n=1;try{n=Number(localStorage.getItem(key()))||1}catch{};await show(Math.max(1,Math.min(pages.length,Math.trunc(n))))}catch(e){if(g===epoch)close();throw e}
  }
- prev.onclick=()=>show(media.matches?Math.max(1,current-1):current===pages.length&&current>2?Math.max(1,2*Math.floor((current-2)/2)):Math.max(1,current-2));
+ prev.onclick=()=>show(media.matches?Math.max(1,current-1):current===pages.length&&current>2?Math.max(1,2*Math.floor((current-1)/2)):Math.max(1,current-2));
  next.onclick=()=>show(Math.min(pages.length,current+visible(current).length));
  go.onclick=()=>show(Number(jump.value));
  const resize=()=>{if(book&&pages.length)void show(current)};
